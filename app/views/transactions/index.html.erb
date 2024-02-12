@@ -10,12 +10,11 @@
 <!-- Step 2: Calculate and display the balances -->
 <ol><%user_balances = Transaction.all%>
 <%for balance in user_balances%>
-<%from = Transaction.find_by ({"id" => balance["from_user_id"]})%>
-<%from_balance = from["amount"]%>
+
 <%to = Transaction.find_by ({"id" => balance["to_user_id"]})%>
 <%to_balance = to["amount"]%>
 
-<li><%=to_balance%></li>
+<li>balance: <%=to_balance%></li>
 <%end%></ol>
 <!-- 
 Expected balances:
