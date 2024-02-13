@@ -4,21 +4,19 @@
 <ol>
 <%transactions = Transaction.all%>
 <%for transaction in transactions%>
-<li><%=transaction["amount"]%></li>
+<%from_user = User.find_by({"id" => transaction["from_user_id"]})%>
+<%to_user = User.find_by({"id" => transaction["to_user_id"]})%>
+<li> sent <%=transaction["amount"]%> to <%=to_user["name"]%></li>
 <%end%>
 </ol>
 <!-- Step 2: Calculate and display the balances -->
 <ol><%user_balances = Transaction.all%>
 <%users = User.all%>
 <%for user in users%>
-<%for balances in user_balances%>
-<%from = Transaction.find_by ({"from_user_id" => user["id"]})%>
-<%from_balance = from["amount"]%>
-<%to = Transaction.find_by ({"to_user_id" => user["id"]})%>
-<%to_balance = to["amount"]%>
+<%from = Transaction.where({"from_user_id" => user["id"]}).sum("amount")%>
+<%to = Transaction.where({"to_user_id" => user["id"]}).sum("amount")%>
+<li><%=user["name"]%> balance: <%=to-from%> KC</li>
 
-<li><%=user["name"]%> balance: <%=from_balance.sum%></li>
-<%end%>
 <%end%></ol>
 <!-- 
 Expected balances:
