@@ -11,14 +11,13 @@
 <ol><%user_balances = Transaction.all%>
 <%users = User.all%>
 <%for user in users%>
-<%for balance in user_balances%>
+<%for balances in user_balances%>
 <%from = Transaction.find_by ({"from_user_id" => user["id"]})%>
 <%from_balance = from["amount"]%>
 <%to = Transaction.find_by ({"to_user_id" => user["id"]})%>
 <%to_balance = to["amount"]%>
-<%total_balance = to_balance - from_balance%>
-<li><%=user["name"]%> balance: <%=total_balance%></li>
 
+<li><%=user["name"]%> balance: <%=from_balance.sum%></li>
 <%end%>
 <%end%></ol>
 <!-- 
