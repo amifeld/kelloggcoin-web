@@ -6,7 +6,7 @@
 <%for transaction in transactions%>
 <%from_user = User.find_by({"id" => transaction["from_user_id"]})%>
 <%to_user = User.find_by({"id" => transaction["to_user_id"]})%>
-<li> sent <%=transaction["amount"]%> to <%=to_user["name"]%></li>
+<li> sent <%=transaction["amount"]%> KC to <%=to_user["name"]%></li>
 <%end%>
 </ol>
 <!-- Step 2: Calculate and display the balances -->
